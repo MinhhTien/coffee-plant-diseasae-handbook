@@ -181,7 +181,7 @@ const menuGroups = [
             />
           </svg>
         ),
-        label: "Chat cộng đồng",
+        label: "Trò chuyện",
         // route: "#",
         // children: [
         //   { label: "Settings", route: "/pages/settings" },

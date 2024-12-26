@@ -3,7 +3,7 @@ import React, { MutableRefObject, use, useState } from "react";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { db } from "@/utils/firebase/firestore";
 import useAuth from "@/contexts/useAuth";
-import { redirect } from "next/navigation";
+import { useRouter } from 'next/navigation';
 import { notifyError } from "@/utils/toastify";
 
 interface SendMessageProps {
@@ -15,12 +15,14 @@ const SendMessage = ({ scroll }: SendMessageProps) => {
 
   const [message, setMessage] = useState("");
   const { userTokenPayload } = useAuth();
+  const router = useRouter();
 
   const sendMessage = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (!accessToken) {
-      notifyError("Cần phải đăng nhập để gửi tin nhắn");
+      router.push('/auth/signin')
+      // notifyError("Cần phải đăng nhập để gửi tin nhắn");
       return;
     }
 
@@ -29,7 +31,7 @@ const SendMessage = ({ scroll }: SendMessageProps) => {
     }
 
     const newMessage = {
-      message: message,
+      message: message.substring(0,500),
       createdAt: serverTimestamp(),
       sender: userTokenPayload,
     };
@@ -40,7 +42,7 @@ const SendMessage = ({ scroll }: SendMessageProps) => {
   };
 
   return (
-    <form onSubmit={sendMessage}>
+    <form onSubmit={(event) => sendMessage(event)}>
       {/* <OutlinedInput
         type="text"
         fullWidth
