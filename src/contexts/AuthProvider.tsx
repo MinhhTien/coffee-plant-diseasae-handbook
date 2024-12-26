@@ -13,7 +13,7 @@ import {
 } from "firebase/firestore";
 import { decodeJwt } from "jose";
 import { useRouter } from "next/navigation";
-import { createContext, ReactNode, useState } from "react";
+import { createContext, ReactNode, useEffect, useState } from "react";
 
 interface IUserTokenPayload {
   name?: string;
@@ -61,11 +61,20 @@ interface AuthProviderProps {
 
 export default function AuthProvider({ children }: AuthProviderProps) {
   const router = useRouter();
+  const [jwtPayload, setJwtPayload] = useState<IUserTokenPayload | null>(null);
 
   // const accessToken = localStorage.getItem("accessToken");
   // const [jwtPayload, setJwtPayload] = useState<IUserTokenPayload | null>(
   //   accessToken ? (decodeJwt(accessToken) as IUserTokenPayload) : null,
   // );
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken) {
+      const decodedPayload = decodeJwt(accessToken) as IUserTokenPayload;
+      setJwtPayload(decodedPayload);
+    }
+  }, []);
 
   const login = async () => {
     try {
@@ -85,11 +94,11 @@ export default function AuthProvider({ children }: AuthProviderProps) {
         exp: 0,
       };
 
-      // setJwtPayload(jwtPayload);
+      setJwtPayload(jwtPayload);
 
       checkExistUser(jwtPayload);
 
-      // localStorage.setItem("accessToken", token);
+      localStorage.setItem("accessToken", token);
       notify("Đăng nhập thành công");
       router.push("/");
       return null;
@@ -117,23 +126,23 @@ export default function AuthProvider({ children }: AuthProviderProps) {
     // const refreshToken = localStorage.getItem("refreshToken");
     // if (refreshToken)
     //   callApi("/auth/instructor/logout", "POST", {}, {}, { refreshToken });
-    // if (jwtPayload) setJwtPayload(null);
+    if (jwtPayload) setJwtPayload(null);
     notify("Đăng xuất thành công");
-    // localStorage.removeItem("accessToken");
+    localStorage.removeItem("accessToken");
     // localStorage.removeItem("refreshToken");
   };
 
   return (
     <AuthContext.Provider
       value={{
-        userTokenPayload: {},
-        // userTokenPayload: jwtPayload
-        //   ? {
-        //       ...jwtPayload,
-        //       iat: jwtPayload.iat ? jwtPayload.iat : 0,
-        //       exp: jwtPayload.exp ? jwtPayload.exp : 0,
-        //     }
-        //   : null,
+        // userTokenPayload: {},
+        userTokenPayload: jwtPayload
+          ? {
+              ...jwtPayload,
+              iat: jwtPayload.iat ? jwtPayload.iat : 0,
+              exp: jwtPayload.exp ? jwtPayload.exp : 0,
+            }
+          : null,
         login,
         logout,
       }}

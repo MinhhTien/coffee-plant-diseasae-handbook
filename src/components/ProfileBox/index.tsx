@@ -6,9 +6,9 @@ import { redirect } from "next/navigation";
 
 const ProfileBox = () => {
   const { userTokenPayload } = useAuth();
-   const accessToken = localStorage.getItem("accessToken");
+  const accessToken = localStorage.getItem("accessToken");
     if (!accessToken) redirect("/");
-    
+
   return (
     <>
       <div className="overflow-hidden rounded-[10px] bg-white shadow-1 dark:bg-gray-dark dark:shadow-card">

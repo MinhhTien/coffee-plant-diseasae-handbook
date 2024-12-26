@@ -25,7 +25,7 @@ export default function DefaultLayout({
 
           {/* <!-- ===== Main Content Star ===== --> */}
           <main>
-            <div className="mx-auto p-4 md:p-6 2xl:p-10">{children}</div>
+            <div className="mx-auto p-4 md:p-6 2xl:p-10 min-h-full">{children}</div>
           </main>
           {/* <!-- ===== Main Content End ===== --> */}
         </div>
