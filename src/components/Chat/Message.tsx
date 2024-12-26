@@ -87,7 +87,7 @@ const Message = ({ message, position }: MessageProps) => {
 
   return (
     <div className="flex items-center gap-2">
-      <div className="relative h-8 w-8 ">
+      <div className="relative h-8 min-w-8 w-8">
         <Image
           src={message.sender.picture}
           fill
