@@ -8,41 +8,40 @@ const TeachableMachine: React.FC = () => {
   const fileInputRef = useRef(null);
 
   useEffect(() => {
+    const init = async () => {
+      const modelURL = "/model/model.json";
+      const metadataURL = "/model/metadata.json";
+
+      // Load model
+      const loadedModel = await (window as any).tmImage.load(
+        modelURL,
+        metadataURL,
+      );
+      console.log("loadedModel", loadedModel);
+      setModel(loadedModel);
+      setMaxPredictions(loadedModel.getTotalClasses());
+    };
     init();
   }, []);
-
-  const init = async () => {
-    const modelURL = "/model/model.json";
-    const metadataURL = "/model/metadata.json";
-
-    // Load model
-    const loadedModel = await (window as any).tmImage.load(
-      modelURL,
-      metadataURL,
-    );
-    console.log('loadedModel', loadedModel)
-    setModel(loadedModel);
-    setMaxPredictions(loadedModel.getTotalClasses());
-  };
 
   const handleImageUpload = async (e: any) => {
     const file = e.target.files[0];
     const reader = new FileReader();
-    console.log('handleImageUpload', file)
+    console.log("handleImageUpload", file);
 
     reader.onload = async (e: any) => {
-      console.log('reader.onload')
+      console.log("reader.onload");
       if (imageRef.current) {
-        console.log('imageRef.current')
+        console.log("imageRef.current");
         imageRef.current.src = e.target.result;
 
         // Wait for image to load
         imageRef.current.onload = async () => {
-          console.log('imageRef.current')
+          console.log("imageRef.current");
           if (model) {
-            console.log('model.prediction')
+            console.log("model.prediction");
             const prediction = await model.predict(imageRef.current);
-            console.log('prediction', prediction)
+            console.log("prediction", prediction);
             setPredictions(
               prediction.sort(
                 (a: any, b: any) => b.probability - a.probability,
@@ -56,9 +55,7 @@ const TeachableMachine: React.FC = () => {
     // check if reader has type Blob
     try {
       reader?.readAsDataURL(file);
-    } catch (error) {
-      
-    }
+    } catch (error) {}
   };
 
   return (
