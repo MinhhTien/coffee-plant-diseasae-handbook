@@ -87,7 +87,7 @@ const Message = ({ message, position }: MessageProps) => {
 
   return (
     <>
-      {["after-header-single", "first", "single", "after-header-single"].find(
+      {["after-header-single", "first", "single", "after-header-first"].find(
         (pos) => pos === position,
       ) &&
         userTokenPayload?.user_id !== message.sender.user_id && (
