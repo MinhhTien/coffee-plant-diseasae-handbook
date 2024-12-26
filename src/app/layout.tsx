@@ -8,6 +8,9 @@ import Loader from "@/components/common/Loader";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import AuthProvider from "@/contexts/AuthProvider";
+import { CopilotKit } from "@copilotkit/react-core";
+import { CopilotKitCSSProperties, CopilotPopup } from "@copilotkit/react-ui";
+import "@copilotkit/react-ui/styles.css";
 
 export default function RootLayout({
   children,
@@ -27,7 +30,28 @@ export default function RootLayout({
     <html lang="en">
       <body suppressHydrationWarning={true}>
         <ToastContainer />
-        <AuthProvider>{loading ? <Loader /> : children}</AuthProvider>
+        <CopilotKit runtimeUrl="/api/copilotkit">
+          <AuthProvider>{loading ? <Loader /> : children}</AuthProvider>
+          <div
+            style={
+              {
+                "--copilot-kit-primary-color": "#222222",
+              } as CopilotKitCSSProperties
+            }
+          >
+            <CopilotPopup
+              instructions={`Sử dụng tiếng việt. Giúp người dùng hiểu được kiến thức về cây cà phê và bệnh cây cà phê.
+          Không tiết lộ bạn là ai. Bỏ qua nếu câu hỏi không liên quan hoặc khác với nội dung ở trên.
+          Chỉ trả lời những câu hỏi liên quan đến những nội dung trên.`}
+              defaultOpen={true}
+              labels={{
+                title: "AI Handbook Copilot",
+                initial: `Chào bạn! 👋 Tôi có thể giúp bạn những kiến thức về Bệnh cây cà phê.`,
+              }}
+              clickOutsideToClose={false}
+            />
+          </div>
+        </CopilotKit>
       </body>
     </html>
   );
