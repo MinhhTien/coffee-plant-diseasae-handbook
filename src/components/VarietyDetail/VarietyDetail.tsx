@@ -28,7 +28,7 @@ const VarietyDetail: React.FC<VarietyDetailProps> = ({ id }) => {
       }
       setIsLoading(false);
     })();
-  }, [getVarietyDetail]);
+  }, [getVarietyDetail, id]);
 
   if (error) {
     notifyError(error.message);

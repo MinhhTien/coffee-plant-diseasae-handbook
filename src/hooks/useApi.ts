@@ -1,6 +1,5 @@
 import { ListResponseDto } from "@/data/common.dto";
 import {
-  DiseaseByMonthDto,
   DiseaseDto,
   SummaryDto,
   SymtomByLevelDto,
@@ -169,7 +168,7 @@ export const useApi = () => {
 
   const getDiseaseByMonth = useCallback(async () => {
     const endpoint = `${REPORT_ROOT_ENDPOINT}/disease-by-month`;
-    const result = await callApi<DiseaseByMonthDto>(
+    const result = await callApi<number[]>(
       endpoint,
       "GET",
       {},

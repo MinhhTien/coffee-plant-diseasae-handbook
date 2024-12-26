@@ -1,5 +1,5 @@
 "use client";
-import { DiseaseDto, VarietyDto } from "@/data/data.dto";
+import { DiseaseDto } from "@/data/data.dto";
 import { useApi } from "@/hooks/useApi";
 import { ErrorResponseDto } from "@/utils/error.dto";
 import { notifyError } from "@/utils/toastify";
@@ -35,7 +35,7 @@ const DiseaseDetail: React.FC<DiseaseDetailProps> = ({ id }) => {
       }
       setIsLoading(false);
     })();
-  }, [getDiseaseDetail]);
+  }, [getDiseaseDetail, id]);
 
   if (error) {
     notifyError(error.message);
