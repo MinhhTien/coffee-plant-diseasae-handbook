@@ -87,13 +87,11 @@ const Message = ({ message, position }: MessageProps) => {
 
   return (
     <>
-      {["after-header-single", "first", "single"].find(
+      {["after-header-single", "first", "single", "after-header-single"].find(
         (pos) => pos === position,
       ) &&
         userTokenPayload?.user_id !== message.sender.user_id && (
-          <p className={`ml-11 text-xs ${marginTop}`}>
-            {message.sender.name}
-          </p>
+          <p className={`ml-11 text-xs ${marginTop}`}>{message.sender.name}</p>
         )}
       <div className="flex items-center gap-2">
         <div className="relative h-8 w-8 min-w-8">
