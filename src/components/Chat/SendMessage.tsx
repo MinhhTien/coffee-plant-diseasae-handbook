@@ -76,7 +76,7 @@ const SendMessage = ({ scroll }: SendMessageProps) => {
         <input
           type="text"
           placeholder="Aa"
-          className="w-full rounded-full border border-stroke bg-gray-2 py-3 pl-5 pr-5 text-dark focus:border-primary focus:outline-none dark:border-dark-4 dark:bg-dark-3 dark:text-white dark:focus:border-primary"
+          className="w-full rounded-full border border-stroke bg-gray-2 py-3 pl-5 pr-14 text-dark focus:border-primary focus:outline-none dark:border-dark-4 dark:bg-dark-3 dark:text-white dark:focus:border-primary"
           onChange={(event) => setMessage(event.target.value)}
           value={message}
         />
