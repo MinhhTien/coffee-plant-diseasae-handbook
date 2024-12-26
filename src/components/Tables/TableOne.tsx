@@ -77,7 +77,7 @@ const TableOne = () => {
       </h4>
 
       <div className="flex flex-col">
-        <div className="grid grid-cols-9">
+        <div className="grid grid-cols-6 sm:grid-cols-9">
           <div className="col-span-2 px-2 pb-3.5">
             <h5 className="text-sm font-medium xsm:text-base">Tên bệnh</h5>
           </div>
@@ -89,7 +89,7 @@ const TableOne = () => {
           <div className="px-2 pb-3.5 text-center">
             <h5 className="text-sm font-medium xsm:text-base">Mùa vụ</h5>
           </div>
-          <div className="px-2 pb-3.5 text-center">
+          <div className="hidden px-2 pb-3.5 text-center sm:block">
             <h5 className="text-sm font-medium xsm:text-base">
               Số triệu chứng
             </h5>
@@ -107,7 +107,7 @@ const TableOne = () => {
         {data.docs.map((disease, key) => (
           <Link key={key} href={`/disease/${disease._id}`}>
             <div
-              className={`grid grid-cols-9 hover:cursor-pointer hover:bg-gray-2 dark:hover:bg-dark-3 ${
+              className={`grid grid-cols-6 sm:grid-cols-9 hover:cursor-pointer hover:bg-gray-2 dark:hover:bg-dark-3 ${
                 key === data.docs.length - 1
                   ? ""
                   : "border-b border-stroke dark:border-dark-3"
@@ -117,8 +117,8 @@ const TableOne = () => {
                 {/* <div className="flex-shrink-0">
                 <Image src={disease.logo} alt="Brand" width={48} height={48} />
               </div> */}
-                <p className="hidden font-medium text-dark dark:text-white sm:block">
-                  {disease.name}
+                <p className="font-medium text-dark dark:text-white">
+                {disease.name}
                 </p>
               </div>
 

@@ -117,30 +117,30 @@ const TableTwo = () => {
         </h4>
       </div>
 
-      <div className="grid grid-cols-8 border-t border-stroke px-4 py-4.5 dark:border-dark-3 md:px-6 2xl:px-7.5">
+      <div className="grid grid-cols-4 2xsm:grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-dark-3 sm:grid-cols-8 md:px-6 2xl:px-7.5">
         <div className="col-span-2 flex items-center px-2">
           <p className="font-medium">Tên giống</p>
         </div>
-        <div className="col-span-2 hidden items-center px-2 sm:flex">
+        <div className="col-span-2 flex items-center px-2">
           <p className="font-medium">Mô tả</p>
         </div>
-        <div className="col-span-1 flex items-center px-2">
+        <div className="col-span-1 hidden items-center px-2 2xsm:flex">
           <p className="font-medium">Tên khoa học</p>
         </div>
-        <div className="col-span-1 flex items-center px-2">
+        <div className="col-span-1 hidden items-center px-2 2xsm:flex">
           <p className="font-medium">Xuất xứ</p>
         </div>
-        <div className="col-span-1 flex items-center px-2">
+        <div className="col-span-1 hidden items-center px-2 sm:flex">
           <p className="font-medium">Phân bố diện tích trồng</p>
         </div>
-        <div className="col-span-1 flex items-center px-2">
+        <div className="col-span-1 hidden items-center px-2 sm:flex">
           <p className="font-medium">Khí hậu thích hợp</p>
         </div>
       </div>
 
       {data.docs.map((variety, key) => (
         <Link key={key} href={`/coffee/${variety._id}`}>
-          <div className="grid grid-cols-8 border-t border-stroke px-4 py-4.5 hover:cursor-pointer hover:bg-gray-2 dark:border-dark-3 dark:hover:bg-dark-3 md:px-6 2xl:px-7.5">
+          <div className="grid grid-cols-4 border-t border-stroke px-4 py-4.5 hover:cursor-pointer hover:bg-gray-2 dark:border-dark-3 dark:hover:bg-dark-3 2xsm:grid-cols-6 sm:grid-cols-8 md:px-6 2xl:px-7.5">
             <div className="col-span-2 flex items-center gap-3 px-2 ">
               {/* <div className="flex flex-col gap-4 sm:flex-row sm:items-center"> */}
               {/* <div className="h-12.5 w-15 rounded-md">
@@ -152,7 +152,7 @@ const TableTwo = () => {
                 />
               </div> */}
               <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-                <div className="relative h-20 w-20 rounded-md">
+                <div className="relative h-20 w-20 rounded-md hidden sm:block">
                   <Image
                     src={variety.image || ""}
                     //   width={100}
@@ -168,27 +168,27 @@ const TableTwo = () => {
               </p>
               {/* </div> */}
             </div>
-            <div className="col-span-2 hidden max-h-21 items-center overflow-hidden px-2 sm:flex">
+            <div className="col-span-2 flex items-center px-2">
               <p className="line-clamp-2 text-body-sm font-medium text-dark dark:text-dark-6">
                 {variety.description}
               </p>
             </div>
-            <div className="col-span-1 flex items-center px-2">
+            <div className="col-span-1 hidden max-h-21 items-center overflow-hidden px-2 2xsm:flex">
               <p className="text-body-sm font-medium text-dark dark:text-dark-6">
                 {variety.scientificName}
               </p>
             </div>
-            <div className="col-span-1 flex items-center px-2">
+            <div className="col-span-1 hidden max-h-21 items-center overflow-hidden px-2 2xsm:flex">
               <p className="text-body-sm font-medium text-dark dark:text-dark-6">
                 {variety.origin}
               </p>
             </div>
-            <div className="col-span-1 flex items-center px-2">
+            <div className="col-span-1 hidden max-h-21 items-center overflow-hidden px-2 sm:flex">
               <p className="text-body-sm font-medium text-dark dark:text-dark-6">
                 {variety.distribution}
               </p>
             </div>
-            <div className="col-span-1 flex items-center px-2">
+            <div className="col-span-1 hidden max-h-21 items-center overflow-hidden px-2 sm:flex">
               <p className="text-body-sm font-medium text-dark dark:text-dark-6">
                 {variety.suitableClimate}
               </p>
