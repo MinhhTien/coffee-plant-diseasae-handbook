@@ -9,6 +9,7 @@ import { notifyError } from "@/utils/toastify";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Loader from "../common/Loader";
+import Image from "next/image";
 
 const packageData: Package[] = [
   {
@@ -108,14 +109,14 @@ const TableThree = () => {
         </h4>
       </div>
 
-      <div className="grid grid-cols-4 sm:grid-cols-7 border-t border-stroke px-4 py-4.5 dark:border-dark-3 md:px-6 2xl:px-7.5">
-        <div className="col-span-1 flex items-center px-2">
+      <div className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-dark-3 sm:grid-cols-10 md:px-6 2xl:px-7.5">
+        <div className="col-span-3 flex items-center px-2">
           <p className="font-medium">Tên bệnh</p>
         </div>
-        <div className="col-span-2 flex items-center px-2">
+        <div className="col-span-3 flex items-center px-2">
           <p className="font-medium">Tác nhân gây bệnh</p>
         </div>
-        <div className="col-span-1 flex items-center px-2">
+        <div className="col-span-1 hidden items-center px-2 sm:flex">
           <p className="font-medium">Mùa vụ</p>
         </div>
         <div className="col-span-1 hidden items-center px-2 sm:flex">
@@ -131,8 +132,8 @@ const TableThree = () => {
 
       {data.docs.map((disease, key) => (
         <Link key={key} href={`/disease/${disease._id}`}>
-          <div className="grid grid-cols-4 sm:grid-cols-7 border-t border-stroke px-4 py-4.5 hover:cursor-pointer hover:bg-gray-2 dark:hover:bg-dark-3 dark:border-dark-3 md:px-6 2xl:px-7.5">
-            <div className="col-span-1 flex items-center px-2 ">
+          <div className="grid grid-cols-6 border-t border-stroke px-4 py-4.5 hover:cursor-pointer hover:bg-gray-2 dark:border-dark-3 dark:hover:bg-dark-3 sm:grid-cols-10 md:px-6 2xl:px-7.5">
+            <div className="col-span-3 flex items-center gap-3 px-2">
               {/* <div className="flex flex-col gap-4 sm:flex-row sm:items-center"> */}
               {/* <div className="h-12.5 w-15 rounded-md">
                 <Image
@@ -142,19 +143,31 @@ const TableThree = () => {
                   alt="Product"
                 />
               </div> */}
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+                <div className="relative hidden h-20 w-20 rounded-md sm:block">
+                  <Image
+                    src={disease.image || ""}
+                    //   width={100}
+                    //   height={100}
+                    alt="Product"
+                    fill={true}
+                    className="rounded-sm object-cover"
+                  />
+                </div>
+              </div>
               <p className="text-body-sm font-medium text-dark dark:text-dark-6">
                 {disease.name}
               </p>
               {/* </div> */}
             </div>
-            <div className="col-span-2 flex items-center px-2">
+            <div className="col-span-3 flex items-center px-2">
               <p className="line-clamp-2 text-body-sm font-medium text-dark dark:text-dark-6">
                 {disease.reason}
               </p>
             </div>
-            <div className="col-span-1 flex items-center px-2">
+            <div className="col-span-1 hidden max-h-21 items-center overflow-hidden px-2 sm:flex">
               <p className="text-body-sm font-medium text-green">
-                 {formatSeason(disease.time.season)}
+                {formatSeason(disease.time.season)}
               </p>
             </div>
             <div className="col-span-1 hidden max-h-21 items-center overflow-hidden px-2 sm:flex">

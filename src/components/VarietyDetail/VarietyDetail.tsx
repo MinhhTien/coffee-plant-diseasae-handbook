@@ -39,7 +39,7 @@ const VarietyDetail: React.FC<VarietyDetailProps> = ({ id }) => {
     <Loader />
   ) : (
     <div className="rounded-[10px] bg-white shadow-1 dark:bg-gray-dark dark:shadow-card">
-      <div className="flex gap-4 border-b border-stroke px-4 py-6 dark:border-dark-3 sm:px-6 xl:px-9">
+      <div className="flex flex-col sm:flex-row gap-4 border-b border-stroke px-4 py-6 dark:border-dark-3 sm:px-6 xl:px-9">
         <div className="relative h-60 min-w-60 rounded-md">
           <Image
             src={data?.image || ""}

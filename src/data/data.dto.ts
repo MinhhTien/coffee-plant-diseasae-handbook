@@ -1,4 +1,4 @@
-export interface VarietyDto {
+  export interface VarietyDto {
   _id: string;
   name: string;
   description: string;
