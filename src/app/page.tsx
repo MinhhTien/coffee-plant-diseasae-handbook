@@ -4,7 +4,7 @@ import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import React from "react";
 
 export const metadata: Metadata = {
-  title: "Cẩm nang số bệnh cây cà phê",
+  title: "Trang chủ - Cẩm nang số bệnh cây cà phê",
   description: "Xây dựng cẩm nang số bệnh cây cà phê ở Việt Nam",
 };
 

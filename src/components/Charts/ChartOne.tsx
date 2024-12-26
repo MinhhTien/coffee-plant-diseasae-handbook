@@ -1,18 +1,41 @@
 import { ApexOptions } from "apexcharts";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import DefaultSelectOption from "@/components/SelectOption/DefaultSelectOption";
+import { ErrorResponseDto } from "@/utils/error.dto";
+import { useApi } from "@/hooks/useApi";
+import { notifyError } from "@/utils/toastify";
 
 const ChartOne: React.FC = () => {
+  const [data, setData] = useState<number[]>();
+  const [error, setError] = useState<ErrorResponseDto | null>(null);
+  const { getDiseaseByMonth } = useApi();
+
+  useEffect(() => {
+    (async () => {
+      const { data: diseaseByMonth, error: apiError } =
+        await getDiseaseByMonth();
+      if (diseaseByMonth) {
+        setData(diseaseByMonth);
+      } else {
+        setError(apiError);
+      }
+    })();
+  }, [getDiseaseByMonth]);
+
+  if (error) {
+    notifyError(error.message);
+  }
+
   const series = [
     {
       name: "Received Amount",
-      data: [0, 20, 35, 45, 35, 55, 65, 50, 65, 75, 60, 75],
+      data: data || [],
     },
-    {
-      name: "Due Amount",
-      data: [15, 9, 17, 32, 25, 68, 80, 68, 84, 94, 74, 62],
-    },
+    // {
+    //   name: "Due Amount",
+    //   data: [15, 9, 17, 32, 25, 68, 80, 68, 84, 94, 74, 62],
+    // },
   ];
 
   const options: ApexOptions = {
@@ -98,18 +121,18 @@ const ChartOne: React.FC = () => {
     xaxis: {
       type: "category",
       categories: [
-        "Sep",
-        "Oct",
-        "Nov",
-        "Dec",
-        "Jan",
-        "Feb",
-        "Mar",
-        "Apr",
-        "May",
-        "Jun",
-        "Jul",
-        "Aug",
+        "T1",
+        "T2",
+        "T3",
+        "T4",
+        "T5",
+        "T6",
+        "T7",
+        "T8",
+        "T9",
+        "T10",
+        "T11",
+        "T12",
       ],
       axisBorder: {
         show: false,
@@ -135,12 +158,12 @@ const ChartOne: React.FC = () => {
             Thống kê theo tháng
           </h4>
         </div>
-        <div className="flex items-center gap-2.5">
+        {/* <div className="flex items-center gap-2.5">
           <p className="font-medium uppercase text-dark dark:text-dark-6">
             Short by:
           </p>
           <DefaultSelectOption options={["Yearly", "Monthly"]} />
-        </div>
+        </div> */}
       </div>
       <div>
         <div className="-ml-4 -mr-5">
@@ -153,19 +176,19 @@ const ChartOne: React.FC = () => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-2 text-center xsm:flex-row xsm:gap-0">
-        <div className="border-stroke dark:border-dark-3 xsm:w-1/2 xsm:border-r">
+      <div className="flex flex-col gap-2 text-center justify-center xsm:flex-row xsm:gap-0">
+        <div className="">
           <p className="font-medium">Tổng số bệnh</p>
           <h4 className="mt-1 text-xl font-bold text-dark dark:text-white">
-          125
+            {data?.reduce((a, b) => a + b, 0)}
           </h4>
         </div>
-        <div className="xsm:w-1/2">
+        {/* <div className="xsm:w-1/2">
           <p className="font-medium">Tổng số triệu chứng</p>
           <h4 className="mt-1 text-xl font-bold text-dark dark:text-white">
             412
           </h4>
-        </div>
+        </div> */}
       </div>
     </div>
   );

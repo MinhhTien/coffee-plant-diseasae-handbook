@@ -1,18 +1,47 @@
 import { ApexOptions } from "apexcharts";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ReactApexChart from "react-apexcharts";
 import DefaultSelectOption from "@/components/SelectOption/DefaultSelectOption";
+import { SymtomByLevelDto } from "@/data/data.dto";
+import { ErrorResponseDto } from "@/utils/error.dto";
+import { useApi } from "@/hooks/useApi";
+import { notifyError } from "@/utils/toastify";
 
 const ChartThree: React.FC = () => {
-  const series = [65, 34, 68];
+  const [data, setData] = useState<SymtomByLevelDto[]>();
+  const [error, setError] = useState<ErrorResponseDto | null>(null);
+  const { getSymtomsByLevel } = useApi();
+
+  useEffect(() => {
+    (async () => {
+      const { data: symtoms, error: apiError } = await getSymtomsByLevel();
+      if (symtoms) {
+        setData(symtoms);
+      } else {
+        setError(apiError);
+      }
+    })();
+  }, [getSymtomsByLevel]);
+
+  if (error) {
+    notifyError(error.message);
+  }
+
+  const series = [
+    data?.find((item) => item._id === "HIGH")?.count || 0,
+    data?.find((item) => item._id === "MEDIUM")?.count || 0,
+    data?.find((item) => item._id === "LOW")?.count || 0,
+  ];
+
+  const total = series.reduce((acc, cur) => acc + cur, 0);
 
   const options: ApexOptions = {
     chart: {
       fontFamily: "Roboto, sans-serif",
       type: "donut",
     },
-    colors: ["#5750F1", "#5475E5", "#8099EC", "#ADBCF2"],
-    labels: ["Desktop", "Tablet", "Mobile", "Unknown"],
+    colors: ["#5750F1", "#8099EC", "#ADBCF2"],
+    labels: ["Nghiêm trọng", "Trunng bình", "Nhẹ"],
     legend: {
       show: false,
       position: "bottom",
@@ -72,9 +101,9 @@ const ChartThree: React.FC = () => {
             Mức độ nghiêm trọng
           </h4>
         </div>
-        <div>
-          <DefaultSelectOption options={["Yearly", "Monthly" ]} />
-        </div>
+        {/* <div>
+          <DefaultSelectOption options={["Yearly", "Monthly"]} />
+        </div> */}
       </div>
 
       <div className="mb-8">
@@ -90,7 +119,15 @@ const ChartThree: React.FC = () => {
               <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-blue"></span>
               <p className="flex w-full justify-between text-body-sm font-medium text-dark dark:text-dark-6">
                 <span> Nghiêm trọng </span>
-                <span> 65% </span>
+                <span>
+                  {" "}
+                  {Math.floor(
+                    ((data?.find((item) => item._id === "HIGH")?.count || 0) /
+                      total) *
+                      100,
+                  )}
+                  %{" "}
+                </span>
               </p>
             </div>
           </div>
@@ -98,17 +135,33 @@ const ChartThree: React.FC = () => {
             <div className="flex w-full items-center">
               <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-blue-light"></span>
               <p className="flex w-full justify-between text-body-sm font-medium text-dark dark:text-dark-6">
-                <span> Trunng bình </span>
-                <span> 34% </span>
+                <span> Trung bình </span>
+                <span>
+                  {" "}
+                  {Math.floor(
+                    ((data?.find((item) => item._id === "MEDIUM")?.count || 0) /
+                      total) *
+                      100,
+                  )}
+                  %{" "}
+                </span>
               </p>
             </div>
           </div>
-          <div className="w-full px-7.5 sm:w-1/2">
+          <div className="w-full px-7.5 sm:w-2/5">
             <div className="flex w-full items-center">
               <span className="mr-2 block h-3 w-full max-w-3 rounded-full bg-blue-light-3"></span>
               <p className="flex w-full justify-between text-body-sm font-medium text-dark dark:text-dark-6">
                 <span> Nhẹ </span>
-                <span> 57% </span>
+                <span>
+                  {" "}
+                  {Math.floor(
+                    ((data?.find((item) => item._id === "LOW")?.count || 0) /
+                      total) *
+                      100,
+                  )}
+                  %{" "}
+                </span>
               </p>
             </div>
           </div>
