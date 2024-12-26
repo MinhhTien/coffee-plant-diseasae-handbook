@@ -20,6 +20,7 @@ const TeachableMachine: React.FC = () => {
       modelURL,
       metadataURL,
     );
+    console.log('loadedModel', loadedModel)
     setModel(loadedModel);
     setMaxPredictions(loadedModel.getTotalClasses());
   };
