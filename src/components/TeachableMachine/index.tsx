@@ -9,6 +9,9 @@ const TeachableMachine: React.FC = () => {
 
   useEffect(() => {
     const init = async () => {
+      const height = window.innerHeight;
+      console.log("height", height);
+
       const modelURL = "/model/model.json";
       const metadataURL = "/model/metadata.json";
 
