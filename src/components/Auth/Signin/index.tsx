@@ -3,11 +3,16 @@ import Link from "next/link";
 import React from "react";
 import GoogleSigninButton from "../GoogleSigninButton";
 import SigninWithPassword from "../SigninWithPassword";
+import { redirect } from "next/navigation";
 
 export default function Signin() {
+  const accessToken = localStorage.getItem("accessToken");
+  if (accessToken) redirect('/')
+
+
   return (
     <>
-      <GoogleSigninButton text="Sign in" />
+      <GoogleSigninButton text="Đăng nhập" />
 
       <div className="my-6 flex items-center justify-center">
         <span className="block h-px w-full bg-stroke dark:bg-dark-3"></span>

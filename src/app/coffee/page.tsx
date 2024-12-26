@@ -2,21 +2,21 @@ import { Metadata } from "next";
 import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Breadcrumb from "@/components/Breadcrumbs/Breadcrumb";
 import CalendarBox from "@/components/CalenderBox";
+import TableTwo from "@/components/Tables/TableTwo";
 
 export const metadata: Metadata = {
-  title: "Next.js Calender Page | NextAdmin - Next.js Dashboard Kit",
-  description:
-    "This is Next.js Calender page for NextAdmin  Tailwind CSS Admin Dashboard Kit",
-  // other metadata
+  title: "Giống cà phê - Cẩm nang số bệnh cây cà phê",
+  description: "Xây dựng cẩm nang số bệnh cây cà phê ở Việt Nam",
 };
 
 const CalendarPage = () => {
   return (
     <DefaultLayout>
-      <div className="mx-auto max-w-7xl">
-        <Breadcrumb pageName="Calendar" />
+      <div className="mx-auto">
+        <Breadcrumb pageName="Giống cà phê" />
 
-        <CalendarBox />
+        {/* <CalendarBox /> */}
+        <TableTwo />
       </div>
     </DefaultLayout>
   );
