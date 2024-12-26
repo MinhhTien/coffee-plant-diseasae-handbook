@@ -86,35 +86,45 @@ const Message = ({ message, position }: MessageProps) => {
   }[position];
 
   return (
-    <div className="flex items-center gap-2">
-      <div className="relative h-8 min-w-8 w-8">
-        <Image
-          src={message.sender.picture}
-          fill
-          alt={"avatar"}
-          className={`rounded-full object-cover ${
-            ["after-header-single", "last", "single"].find(
-              (pos) => pos === position,
-            ) && userTokenPayload?.user_id !== message.sender.user_id
-              ? ""
-              : "hidden"
-          }`}
-        ></Image>
-      </div>
+    <>
+      {["after-header-single", "first", "single"].find(
+        (pos) => pos === position,
+      ) &&
+        userTokenPayload?.user_id !== message.sender.user_id && (
+          <p className={`ml-11 text-xs ${marginTop}`}>
+            {message.sender.name}
+          </p>
+        )}
+      <div className="flex items-center gap-2">
+        <div className="relative h-8 w-8 min-w-8">
+          <Image
+            src={message.sender.picture}
+            fill
+            alt={"avatar"}
+            className={`rounded-full object-cover ${
+              ["after-header-single", "last", "single"].find(
+                (pos) => pos === position,
+              ) && userTokenPayload?.user_id !== message.sender.user_id
+                ? ""
+                : "hidden"
+            }`}
+          ></Image>
+        </div>
 
-      <div
-        className={`w-fit max-w-[500px] ${userTokenPayload?.user_id === message.sender.user_id ? borderRadiusRight : borderRadiusLeft} 
-        ${userTokenPayload?.user_id === message.sender.user_id ? "ml-auto bg-[#5750F1]" : "ml-0 bg-[#00000033]"} ${marginTop} px-4 py-2 overflow-hidden`}
-      >
-        <div className="flex flex-col gap-1">
-          <h6
-            className={`text-sm text-${userTokenPayload?.user_id === message.sender.user_id ? "white" : "black"} break-words`}
-          >
-            {message.message}
-          </h6>
+        <div
+          className={`w-fit max-w-[500px] ${userTokenPayload?.user_id === message.sender.user_id ? borderRadiusRight : borderRadiusLeft} 
+        ${userTokenPayload?.user_id === message.sender.user_id ? "ml-auto bg-[#5750F1]" : "ml-0 bg-[#00000033]"} mt-[2px] overflow-hidden px-4 py-2`}
+        >
+          <div className="flex flex-col gap-1">
+            <h6
+              className={`text-sm text-${userTokenPayload?.user_id === message.sender.user_id ? "white" : "black"} break-words`}
+            >
+              {message.message}
+            </h6>
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 
