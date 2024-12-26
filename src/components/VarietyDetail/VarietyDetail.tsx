@@ -5,6 +5,7 @@ import { ErrorResponseDto } from "@/utils/error.dto";
 import { notifyError } from "@/utils/toastify";
 import { useEffect, useState } from "react";
 import Loader from "../common/Loader";
+import Image from "next/image";
 
 interface VarietyDetailProps {
   id: string;
@@ -38,12 +39,35 @@ const VarietyDetail: React.FC<VarietyDetailProps> = ({ id }) => {
     <Loader />
   ) : (
     <div className="rounded-[10px] bg-white shadow-1 dark:bg-gray-dark dark:shadow-card">
-      <div className="border-b border-stroke px-4 py-6 dark:border-dark-3 sm:px-6 xl:px-9">
-        <h3 className="text-[22px] font-bold leading-7 text-dark dark:text-white">
-          {data?.name}
-        </h3>
+      <div className="flex gap-4 border-b border-stroke px-4 py-6 dark:border-dark-3 sm:px-6 xl:px-9">
+        <div className="relative h-60 min-w-60 rounded-md">
+          <Image
+            src={data?.image || ""}
+            // width={100}
+            // height={100}
+            alt="Product"
+            fill={true}
+            // layout="fill"
+            className="rounded-sm object-cover"
+          />
+        </div>
+        <div className="flex flex-col">
+          <h3 className="text-[22px] font-bold leading-7 text-dark dark:text-white">
+            {data?.name}
+          </h3>
 
-        <p className="mt-3 block font-medium">{data?.description}</p>
+          <p className="mt-3 block font-medium">{data?.description}</p>
+          <div className="mt-3">
+            <p className="block">
+              <span className="mr-2 font-bold text-dark">Ngày tạo: </span>{" "}
+              {new Date(data?.createdAt ?? "").toLocaleDateString("vi-VN")}
+            </p>
+            <span className="mt-2 block">
+              <span className="mr-2 font-bold text-dark">Ngày cập nhật: </span>{" "}
+              {new Date(data?.updatedAt ?? "").toLocaleDateString("vi-VN")}
+            </span>
+          </div>
+        </div>
       </div>
       <div className="p-4 sm:p-6 xl:p-9">
         <div className="flex flex-col-reverse gap-5 xl:flex-row xl:justify-between">
@@ -92,18 +116,6 @@ const VarietyDetail: React.FC<VarietyDetailProps> = ({ id }) => {
                   Khí hậu thích hợp:
                 </span>{" "}
                 {data?.suitableClimate}
-              </span>
-            </div>
-            <div>
-              <p className="block">
-                <span className="mr-2 font-bold text-dark">Ngày tạo: </span>{" "}
-                {new Date(data?.createdAt ?? "").toLocaleDateString("vi-VN")}
-              </p>
-              <span className="mt-2 block">
-                <span className="mr-2 font-bold text-dark">
-                  Ngày cập nhật:{" "}
-                </span>{" "}
-                {new Date(data?.updatedAt ?? "").toLocaleDateString("vi-VN")}
               </span>
             </div>
           </div>

@@ -9,6 +9,7 @@ import { useApi } from "@/hooks/useApi";
 import { redirect } from "next/navigation";
 import Link from "next/link";
 import Loader from "../common/Loader";
+import Image from "next/image";
 
 const productData: Product[] = [
   {
@@ -116,8 +117,8 @@ const TableTwo = () => {
         </h4>
       </div>
 
-      <div className="grid grid-cols-7 border-t border-stroke px-4 py-4.5 dark:border-dark-3 md:px-6 2xl:px-7.5">
-        <div className="col-span-1 flex items-center px-2">
+      <div className="grid grid-cols-8 border-t border-stroke px-4 py-4.5 dark:border-dark-3 md:px-6 2xl:px-7.5">
+        <div className="col-span-2 flex items-center px-2">
           <p className="font-medium">Tên giống</p>
         </div>
         <div className="col-span-2 hidden items-center px-2 sm:flex">
@@ -139,8 +140,8 @@ const TableTwo = () => {
 
       {data.docs.map((variety, key) => (
         <Link key={key} href={`/coffee/${variety._id}`}>
-          <div className="grid grid-cols-7 border-t border-stroke px-4 py-4.5 hover:cursor-pointer hover:bg-gray-2 dark:border-dark-3 dark:hover:bg-dark-3 md:px-6 2xl:px-7.5">
-            <div className="col-span-1 flex items-center px-2 ">
+          <div className="grid grid-cols-8 border-t border-stroke px-4 py-4.5 hover:cursor-pointer hover:bg-gray-2 dark:border-dark-3 dark:hover:bg-dark-3 md:px-6 2xl:px-7.5">
+            <div className="col-span-2 flex items-center gap-3 px-2 ">
               {/* <div className="flex flex-col gap-4 sm:flex-row sm:items-center"> */}
               {/* <div className="h-12.5 w-15 rounded-md">
                 <Image
@@ -150,6 +151,18 @@ const TableTwo = () => {
                   alt="Product"
                 />
               </div> */}
+              <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
+                <div className="relative h-20 w-20 rounded-md">
+                  <Image
+                    src={variety.image || ""}
+                    //   width={100}
+                    //   height={100}
+                    alt="Product"
+                    fill={true}
+                    className="rounded-sm object-cover"
+                  />
+                </div>
+              </div>
               <p className="text-body-sm font-medium text-green">
                 {variety.name}
               </p>

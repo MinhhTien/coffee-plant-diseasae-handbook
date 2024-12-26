@@ -7,14 +7,14 @@ import DefaultLayout from "@/components/Layouts/DefaultLayout";
 import Signin from "@/components/Auth/Signin";
 
 export const metadata: Metadata = {
-  title: "Next.js Login Page | NextAdmin - Next.js Dashboard Kit",
-  description: "This is Next.js Login Page NextAdmin Dashboard Kit",
+  title: "Đăng nhập - Cẩm nang số bệnh cây cà phê",
+  description: "Xây dựng cẩm nang số bệnh cây cà phê ở Việt Nam",
 };
 
 const SignIn: React.FC = () => {
   return (
     <DefaultLayout>
-      <Breadcrumb pageName="Sign In" />
+      <Breadcrumb pageName="Đăng nhập" />
 
       <div className="rounded-[10px] bg-white shadow-1 dark:bg-gray-dark dark:shadow-card">
         <div className="flex flex-wrap items-center">
