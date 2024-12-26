@@ -27,15 +27,21 @@ const TeachableMachine: React.FC = () => {
   const handleImageUpload = async (e: any) => {
     const file = e.target.files[0];
     const reader = new FileReader();
+    console.log('handleImageUpload', file)
 
     reader.onload = async (e: any) => {
+      console.log('reader.onload')
       if (imageRef.current) {
+        console.log('imageRef.current')
         imageRef.current.src = e.target.result;
 
         // Wait for image to load
         imageRef.current.onload = async () => {
+          console.log('imageRef.current')
           if (model) {
+            console.log('model.prediction')
             const prediction = await model.predict(imageRef.current);
+            console.log('prediction', prediction)
             setPredictions(
               prediction.sort(
                 (a: any, b: any) => b.probability - a.probability,
