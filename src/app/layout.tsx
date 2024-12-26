@@ -33,8 +33,22 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js" async></script>
-        <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.3/dist/teachablemachine-image.min.js" async></script>
+        {/* <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js" async></script>
+        <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.3/dist/teachablemachine-image.min.js" async></script> */}
+              <Script
+        src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"
+        strategy="beforeInteractive"
+        onLoad={() =>
+          console.log(`script tensorflow/tfjs loaded correctly, window.FB has been populated`)
+        }
+      />
+      <Script
+        src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.3/dist/teachablemachine-image.min.js"
+        strategy="beforeInteractive"
+        onLoad={() =>
+          console.log(`script teachablemachine/image loaded correctly, window.FB has been populated`)
+        }
+      />      
       </head>
       <body suppressHydrationWarning={true}>
         <ToastContainer />
