@@ -11,9 +11,6 @@ import AuthProvider from "@/contexts/AuthProvider";
 import { CopilotKit } from "@copilotkit/react-core";
 import { CopilotKitCSSProperties, CopilotPopup } from "@copilotkit/react-ui";
 import "@copilotkit/react-ui/styles.css";
-import Head from "next/head";
-// eslint-disable-next-line @next/next/no-document-import-in-page
-import { NextScript } from "next/document";
 import Script from "next/script";
 
 export default function RootLayout({
@@ -35,20 +32,14 @@ export default function RootLayout({
       <head>
         {/* <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js" async></script>
         <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.3/dist/teachablemachine-image.min.js" async></script> */}
-              <Script
-        src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"
-        strategy="beforeInteractive"
-        onLoad={() =>
-          console.log(`script tensorflow/tfjs loaded correctly, window.FB has been populated`)
-        }
-      />
-      <Script
-        src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.3/dist/teachablemachine-image.min.js"
-        strategy="beforeInteractive"
-        onLoad={() =>
-          console.log(`script teachablemachine/image loaded correctly, window.FB has been populated`)
-        }
-      />      
+        <Script
+          src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"
+          strategy="beforeInteractive"
+        />
+        <Script
+          src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.3/dist/teachablemachine-image.min.js"
+          strategy="beforeInteractive"
+        />
       </head>
       <body suppressHydrationWarning={true}>
         <ToastContainer />
@@ -74,15 +65,6 @@ export default function RootLayout({
             />
           </div>
         </CopilotKit>
-        {/* <NextScript />
-        <Script
-          src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"
-          strategy="beforeInteractive"
-        />
-        <Script
-          src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.3/dist/teachablemachine-image.min.js"
-          strategy="beforeInteractive"
-        /> */}
       </body>
     </html>
   );
