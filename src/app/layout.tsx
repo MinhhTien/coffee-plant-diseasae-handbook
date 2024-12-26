@@ -11,6 +11,7 @@ import AuthProvider from "@/contexts/AuthProvider";
 import { CopilotKit } from "@copilotkit/react-core";
 import { CopilotKitCSSProperties, CopilotPopup } from "@copilotkit/react-ui";
 import "@copilotkit/react-ui/styles.css";
+import Head from "next/head";
 
 export default function RootLayout({
   children,
@@ -28,6 +29,10 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js" async></script>
+        <script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8.3/dist/teachablemachine-image.min.js" async></script>
+      </head>
       <body suppressHydrationWarning={true}>
         <ToastContainer />
         <CopilotKit runtimeUrl="/api/copilotkit">
@@ -48,7 +53,7 @@ export default function RootLayout({
                 title: "AI Handbook Copilot",
                 initial: `Chào bạn! 👋 Tôi có thể giúp bạn những kiến thức về Bệnh cây cà phê.`,
               }}
-              clickOutsideToClose={false}
+              clickOutsideToClose={true}
             />
           </div>
         </CopilotKit>

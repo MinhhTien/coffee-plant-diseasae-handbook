@@ -113,7 +113,7 @@ const TableThree = () => {
           <p className="font-medium">Tên bệnh</p>
         </div>
         <div className="col-span-2 hidden items-center px-2 sm:flex">
-          <p className="font-medium">tác nhân gây bệnh</p>
+          <p className="font-medium">Tác nhân gây bệnh</p>
         </div>
         <div className="col-span-1 flex items-center px-2">
           <p className="font-medium">Mùa vụ</p>

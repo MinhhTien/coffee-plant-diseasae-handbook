@@ -215,7 +215,7 @@ const DiseaseDetail: React.FC<DiseaseDetailProps> = ({ id }) => {
       <div className="rounded-[10px] bg-white shadow-1 dark:bg-gray-dark dark:shadow-card">
         <div className="px-4 py-6 dark:border-dark-3 sm:px-6 xl:px-9">
           <h3 className="text-[22px] font-bold leading-7 text-dark dark:text-white">
-            Triệu chứng
+            Biện pháp
           </h3>
         </div>
         <div className="grid grid-cols-9 border-t border-stroke px-4 py-4.5 dark:border-dark-3 md:px-6 2xl:px-7.5">
