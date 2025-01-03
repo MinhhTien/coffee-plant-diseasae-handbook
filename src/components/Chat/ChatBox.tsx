@@ -12,10 +12,20 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { db } from "@/utils/firebase/firestore";
 import { redirect } from "next/navigation";
 import Message from "./Message";
+import ImageModal from "./ImageModal";
 
 export default function ChatBox() {
   const scrollRef = useRef<HTMLSpanElement | null>(null);
   const [messages, setMessages] = useState<DocumentData[]>([]);
+  const [hasImage, setHasImage] = useState(false);
+  const [hasFile, setHasFile] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+  const chatBoxHeight = hasImage
+    ? "h-[calc(100vh-474px)] 2xsm:h-[calc(100vh-476px)] sm:h-[calc(100vh-456px)] lg:h-[calc(100vh-454px)] xl:h-[calc(100vh-472px)] 2xl:h-[calc(100vh-494px)]"
+    : hasFile
+      ? "h-[calc(100vh-440px)] 2xsm:h-[calc(100vh-442px)] sm:h-[calc(100vh-422px)] lg:h-[calc(100vh-420px)] xl:h-[calc(100vh-438px)] 2xl:h-[calc(100vh-470px)]"
+      : "h-[calc(100vh-382px)] 2xsm:h-[calc(100vh-384px)] sm:h-[calc(100vh-364px)] lg:h-[calc(100vh-362px)] xl:h-[calc(100vh-380px)] 2xl:h-[calc(100vh-402px)]";
 
   //   const checkExistChatRoom = async () => {
   //     const q = query(
@@ -162,7 +172,7 @@ export default function ChatBox() {
           </h4>
         </div>
         <div className="overflow-hidden">
-          <div className="h-[calc(100vh-382px)] overflow-auto px-6 2xsm:h-[calc(100vh-384px)] sm:h-[calc(100vh-364px)] lg:h-[calc(100vh-362px)] xl:h-[calc(100vh-380px)] 2xl:h-[calc(100vh-402px)]">
+          <div className={`${chatBoxHeight} overflow-auto px-6`}>
             {messages.map((message, index) => {
               const messageDate = message.createdAt?.toDate() || new Date();
               const previousMessage = messages[index - 1];
@@ -226,7 +236,11 @@ export default function ChatBox() {
                       })}
                     </p>
                   )}
-                  <Message message={message} position={position} />
+                  <Message
+                    message={message}
+                    position={position}
+                    setSelectedImage={setSelectedImage}
+                  />
                 </div>
               );
             })}
@@ -234,9 +248,22 @@ export default function ChatBox() {
           </div>
         </div>
         <div className="p-4">
-          <SendMessage scroll={scrollRef} />
+          <SendMessage
+            scroll={scrollRef}
+            setHasImage={setHasImage}
+            hasImage={hasImage}
+            setHasFile={setHasFile}
+            hasFile={hasFile}
+          />
         </div>
       </div>
+      {selectedImage && (
+        <ImageModal
+          imageUrl={selectedImage}
+          isOpen={!!selectedImage}
+          onClose={() => setSelectedImage(null)}
+        />
+      )}
     </>
   );
 }
